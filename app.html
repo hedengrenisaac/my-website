@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Running Pace Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1f2933;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px;
+            width: 100%;
+            font-size: 16px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .nav-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Running Pace Calculator</h1>
+    <p>Calculate your pace per mile</p>
+</header>
+
+<div class="container">
+    <label for="distance">Distance (miles)</label>
+    <input type="number" id="distance" placeholder="e.g. 5">
+
+    <label for="minutes">Time (minutes)</label>
+    <input type="number" id="minutes" placeholder="e.g. 32">
+
+    <label for="seconds">Time (seconds)</label>
+    <input type="number" id="seconds" placeholder="e.g. 30">
+
+    <button onclick="calculatePace()">Calculate Pace</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="nav-links">
+        <a href="scratch.html">Back to Scratch Page</a>
+        <a href="index.html">Back to Professional Page</a>
+    </div>
+</div>
+
+<script>
+    function calculatePace() {
+        const distance = parseFloat(document.getElementById("distance").value);
+        const minutes = parseFloat(document.getElementById("minutes").value);
+        const seconds = parseFloat(document.getElementById("seconds").value);
+
+        if (isNaN(distance) || isNaN(minutes) || isNaN(seconds) || distance <= 0) {
+            document.getElementById("result").innerText = "Please enter valid numbers.";
+            return;
+        }
+
+        const totalTimeSeconds = (minutes * 60) + seconds;
+        const paceSeconds = totalTimeSeconds / distance;
+
+        const paceMinutes = Math.floor(paceSeconds / 60);
+        const paceRemainingSeconds = Math.round(paceSeconds % 60)
+            .toString()
+            .padStart(2, "0");
+
+        document.getElementById("result").innerText =
+            `Pace: ${paceMinutes}:${paceRemainingSeconds} per mile`;
+    }
+</script>
+
+</body>
+</html>
